@@ -18,7 +18,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
     pitches=db.relationship('Pitch',backref='role',lazy='dynamic')
-    confirmed=db.Column(db.Boolean,default=False)
+    
     
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer(current_app.config['SECRET_KEY'],expiration)
