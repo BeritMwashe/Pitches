@@ -17,7 +17,7 @@ class User(db.Model,UserMixin):
     email=db.Column(db.String(64),unique=True,index=True)
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
-    role_id=db.Column(db.Integer,db.ForeignKey('roles.id'))
+    pitches=db.relationship('Pitch',backref='role',lazy='dynamic')
     confirmed=db.Column(db.Boolean,default=False)
     
     def generate_confirmation_token(self,expiration=3600):
@@ -54,13 +54,14 @@ class User(db.Model,UserMixin):
     def __repr__(self):
         return f'User {self.username}'
 
-class Roles(db.Model):
-    __tablename__='roles'
+class Pitch(db.Model):
+    __tablename__='pitches'
     id=db.Column(db.Integer,primary_key=True)
-    name=db.column(db.String(64))
-    users=db.relationship('User',backref='role',lazy='dynamic')
+    name=db.Column(db.String(64))
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+    
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return '<Pitch %r>' % self.name
 
 

@@ -1,12 +1,5 @@
-Dear {{user.username}},
-
-
-Welcome to PitchApp!
-
-
-To confirm your account please click on the following link:
-{{url_for('auth.confirm',token=token,_external=True)}}
-
-
-Sincerely,
-Mwashe Berit
+ Dear {{user.username}}
+ Wecome to PitchApp.We value the existence of our customers thats why we confirmed that this is a valid mail
+ 
+    Sincerely,
+    Mwashe Berit
