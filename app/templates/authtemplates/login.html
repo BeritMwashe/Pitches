@@ -1,2 +1,14 @@
-{% extends 'base.html'%} {%block content%}
-<h1>Hello</h1>{%endblock%}
+{% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <!--Flash message -->
+
+            {{wtf.quick_form(form)}}
+
+        </div>
+        <div clas="col-md-2"> </div>
+    </div>
+</div>
+{%endblock%}
