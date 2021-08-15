@@ -17,7 +17,7 @@ class User(db.Model,UserMixin):
     email=db.Column(db.String(64),unique=True,index=True)
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
-    pitches=db.relationship('Pitch',backref='role',lazy='dynamic')
+    pitches=db.relationship('Pitch',backref='own',lazy='dynamic')
     
     
     def generate_confirmation_token(self,expiration=3600):
