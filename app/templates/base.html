@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    {%block navbar%} {% include 'navbar.html' %}{%endblock%} {%block content%}
+    {% block styles %} {{super()}}
+    <link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}"> {% endblock %} {%block navbar%} {% include 'navbar.html' %}{%endblock%} {%block content%}
     <div class="d-flex flex-column bd-highlight mb-3">
         <div class="p-2 bd-highlight">Flex item 1</div>
         <div class="p-2 bd-highlight">Flex item 2</div>
