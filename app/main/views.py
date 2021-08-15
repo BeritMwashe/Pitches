@@ -14,3 +14,6 @@ def index():
 def secret():
     return 'Only auth users are allowed'
 
+@main.route('/biz')
+def biz():
+    return render_template('maintemplates/business_pitch.html')

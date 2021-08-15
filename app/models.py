@@ -57,11 +57,16 @@ class User(db.Model,UserMixin):
 class Pitch(db.Model):
     __tablename__='pitches'
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(64))
+    pitch_body=db.Column(db.String(64))
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-    
+    category_id =db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     def __repr__(self):
         return '<Pitch %r>' % self.name
 
 
+class Category(db.Model):
+    __tablename__='categories'
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(64))
+    pitches = db.relationship("Pitch", backref="category",lazy='dynamic')
