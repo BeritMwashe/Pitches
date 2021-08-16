@@ -33,11 +33,12 @@ def addCategory():
 
 
 
-@main.route('/addComent',methods=['POST','GET'])
-def addComment():
+@main.route('/addComent/<pitch>',methods=['POST','GET'])
+def addComment(pitch):
     form=CommentsForm()
+    pitch=Pitch.query.filter_by(id=pitch).first()
     if form.validate_on_submit():
-        comment=Comment(name=form.comment.data,)
+        comment=Comment(name=form.comment.data,pitch=pitch)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.index'))
