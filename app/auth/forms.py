@@ -1,7 +1,7 @@
 
 
 from ..models import User
-from tokenize import String
+
 from flask_wtf import Form
 from wtforms import StringField,PasswordField,BooleanField,SubmitField,ValidationError
 from wtforms.validators import Required,Email,Length,Regexp,EqualTo
@@ -32,4 +32,4 @@ class Registrationform(Form):
 
     def validate_username(self,field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('Username exixts')
+            raise ValidationError('Username exists')

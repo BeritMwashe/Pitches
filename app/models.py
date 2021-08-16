@@ -70,3 +70,6 @@ class Category(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(64))
     pitches = db.relationship("Pitch", backref="category",lazy='dynamic')
+
+
+

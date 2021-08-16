@@ -1,6 +1,6 @@
 import email
 import os
-from urllib import request
+
 
 from flask_login import current_user, login_required, login_user, logout_user
 from ..models import User

@@ -12,6 +12,17 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Categories
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <p><a class="dropdown-item" href="#">Action</a></p>
+                        <p><a class="dropdown-item" href="#">Another action</a></p>
+                        <div class="dropdown-divider"></div>
+                        <p><a class="dropdown-item" href="/addCategory">Add Categories</a></p>
+                    </div>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
