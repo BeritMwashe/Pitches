@@ -30,6 +30,18 @@ def addCategory():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('maintemplates/addcategory.html',form=form)
+
+
+
+@main.route('/addComent',methods=['POST','GET'])
+def addComment():
+    form=CommentsForm()
+    if form.validate_on_submit():
+        comment=Comment(name=form.name.data)
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    return render_template('maintemplates/addcomment.html',form=form)
 @main.route('/addPitch',methods=['POST','GET'])
 @login_required
 def addPitch():
