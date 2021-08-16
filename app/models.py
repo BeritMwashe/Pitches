@@ -73,4 +73,5 @@ class Category(db.Model):
 
 
 
-class Comments()
+class Comments():
+    pass
