@@ -73,5 +73,9 @@ class Category(db.Model):
 
 
 
-class Comments():
-    pass
+class Comment():
+    __tablename__='comments'
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(64))
+    comment=db.Column(db.String(64))
+    
