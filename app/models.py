@@ -17,7 +17,7 @@ class User(db.Model,UserMixin):
     email=db.Column(db.String(64),unique=True,index=True)
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
-    pitches=db.relationship('Pitch',backref='own',lazy='dynamic')
+    pitches=db.relationship('Pitch',backref='owner',lazy='dynamic')
     
     
     def generate_confirmation_token(self,expiration=3600):
@@ -59,10 +59,10 @@ class Pitch(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     pitch_body=db.Column(db.String(64))
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
-    category_id =db.Column(db.Integer, db.ForeignKey('categories.id'))
+    categories_id =db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     def __repr__(self):
-        return '<Pitch %r>' % self.name
+        return '<Pitch %r>' % self.pitch_body
 
 
 class Category(db.Model):
@@ -73,3 +73,4 @@ class Category(db.Model):
 
 
 
+class Comments()

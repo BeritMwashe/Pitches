@@ -1,17 +1,20 @@
 {% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
 <div class="container">
     <div class="row">
-        {%for biz in [1,2,3,4,5,6,7,8,9,9,0]%}
+        {%for biz in pitch%}
         <div class="col-md-4">
             <div class="card">
                 <ul class="list-group list-group-flush ">
-                    <li class="list-group-item ">Cras justo odio</li>
+                    <li class="list-group-item ">{{biz.pitch_body}}</li>
+                    <!-- <a href="">{{biz.category.name}}</a> -->
                     <li class="list-group-item text-center font-weight:bold">Dapibus ac facilisis in</li>
                     <li class="list-group-item">
                         <div class=" card-body float-right ">
                             <a href="# " class="card-link ">Like</a>
+
                             <a href="# " class="card-link ">Dislike</a>
                             <a href="# " class="card-link ">Comment</a>
+
                         </div>
                     </li>
                 </ul>

@@ -1,0 +1,20 @@
+{% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
+<div class="container">
+    <div class="row">
+        {%for bizpitch in bizlist%}
+        <div class="col-md-4">
+            <div class="card">
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item ">{{name}}</li>
+                    <p>
+                        <li class="list-group-item text-center font-weight:bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente vel possimus repudiandae quod illum id minus voluptate, consectetur vitae architecto repellendus quo eos amet eum minima veritatis distinctio nihil atque?
+                        </li>
+                    </p>
+
+                </ul>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}
