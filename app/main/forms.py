@@ -21,4 +21,10 @@ class PitchForm(Form):
 
 
 
+class CommentsForm(Form):
+    comment=StringField('Comment',validators=[Required()])
+    
+
+
+
 

@@ -1,3 +1,4 @@
+import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from .  import db
@@ -60,7 +61,8 @@ class Pitch(db.Model):
     pitch_body=db.Column(db.String(64))
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
     categories_id =db.Column(db.Integer, db.ForeignKey('categories.id'))
-
+    comments=db.relationship('Comment',backref='pitch',lazy='dynamic')
+    time = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     def __repr__(self):
         return '<Pitch %r>' % self.pitch_body
 
@@ -73,9 +75,9 @@ class Category(db.Model):
 
 
 
-class Comment():
+class Comment(db.Model):
     __tablename__='comments'
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(64))
     comment=db.Column(db.String(64))
-    
+    pitches_id =db.Column(db.Integer, db.ForeignKey('pitches.id'))
+    time = db.Column(db.DateTime, default = datetime.datetime.utcnow)

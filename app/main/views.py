@@ -1,6 +1,6 @@
 from os import name
-from app.models import Category, Pitch, User
-from app.main.forms import CategoryForm, PitchForm
+from app.models import Category, Comment, Pitch, User
+from app.main.forms import CategoryForm, CommentsForm, PitchForm
 from flask import render_template,redirect,url_for,request
 from flask_login import current_user, login_required
 from . import main
@@ -37,7 +37,7 @@ def addCategory():
 def addComment():
     form=CommentsForm()
     if form.validate_on_submit():
-        comment=Comment(name=form.name.data)
+        comment=Comment(name=form.comment.data,)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.index'))
