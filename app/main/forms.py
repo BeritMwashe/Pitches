@@ -5,7 +5,7 @@ from flask_login import current_user
 from ..models import User
 
 from flask_wtf import Form
-from wtforms import SelectField,StringField,PasswordField,BooleanField,SubmitField,ValidationError
+from wtforms import TextAreaField,SelectField,StringField,PasswordField,BooleanField,SubmitField,ValidationError
 from wtforms.validators import Required,Email,Length,Regexp,EqualTo
 
 class CategoryForm(Form):
@@ -27,4 +27,6 @@ class CommentsForm(Form):
 
 
 
-
+class UpdateProfile(Form):
+    bio = TextAreaField('Tell us about you.',validators = [Required()])
+    submit = SubmitField('Submit')

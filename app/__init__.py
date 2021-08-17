@@ -6,6 +6,7 @@ from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
+
 from config import config_options
 
 login_manager=LoginManager()
@@ -14,6 +15,7 @@ login_manager.login_view='auth.login'
 bootstrap=Bootstrap()
 mail=Mail()
 db=SQLAlchemy()
+
 
 
 

@@ -21,6 +21,8 @@ class User(db.Model,UserMixin):
     pitches=db.relationship('Pitch',backref='owner',lazy='dynamic')
     likes = db.relationship("Like", backref="user",lazy='dynamic')
     dislike = db.relationship("DisLike", backref="dislikeuser",lazy='dynamic')
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
     
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer(current_app.config['SECRET_KEY'],expiration)
@@ -66,8 +68,7 @@ class Pitch(db.Model):
     time = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     likes = db.relationship("Like", backref="liker",lazy='dynamic')
     dislikes = db.relationship("DisLike", backref="disliked",lazy='dynamic')
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
+
     
     def __repr__(self):
         return '<Pitch %r>' % self.pitch_body

@@ -5,6 +5,8 @@ from flask import render_template,redirect,url_for,request
 from flask_login import current_user, login_required
 from . import main
 from .. import db
+from .forms import UpdateProfile
+
 
 
 @main.route('/',methods=['GET','POST'])
@@ -103,7 +105,7 @@ def like(id):
 @main.route('/dislikes/<int:id>',methods=['POST','GET'])
 @login_required
 def dislikes(id):
-    
+   
 
     pitch_id=Pitch.query.filter_by(id=id).first()
     name=Pitch.query.filter_by(id=id).first()
@@ -130,8 +132,31 @@ def dislikes(id):
 @main.route('/user/<uname>')
 def profile(uname):
     user=User.query.filter_by(username=uname).first()
+    pitch=Pitch.query.join(User).filter(User.username==uname).all()
 
 
     if user is None:
         abort(404)
-    return render_template('profile/profile.html',user=user)
+    return render_template('profile/profile.html',user=user,pitch=pitch)
+
+
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    
+    if user is None:
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update.html',form =form)
