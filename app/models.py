@@ -20,7 +20,7 @@ class User(db.Model,UserMixin):
     password_hash=db.Column(db.String(128))
     pitches=db.relationship('Pitch',backref='owner',lazy='dynamic')
     likes = db.relationship("Like", backref="user",lazy='dynamic')
-    
+    dislike = db.relationship("DisLike", backref="dislikeuser",lazy='dynamic')
     
     def generate_confirmation_token(self,expiration=3600):
         s=Serializer(current_app.config['SECRET_KEY'],expiration)
@@ -65,6 +65,7 @@ class Pitch(db.Model):
     comments=db.relationship('Comment',backref='pitch',lazy='dynamic')
     time = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     likes = db.relationship("Like", backref="liker",lazy='dynamic')
+    dislike = db.relationship("DisLike", backref="disliked",lazy='dynamic')
     def __repr__(self):
         return '<Pitch %r>' % self.pitch_body
 
@@ -97,5 +98,21 @@ class Like(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+
+class DisLike(db.Model):
+    __tablename__='likes'
+    id=db.Column(db.Integer,primary_key=True)
+    pitches_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+
+
+    @classmethod
+    def getdislikes(cls,id):
+        likes=DisLike.query.filter_by(pitches_id=id).all()
+        return likes
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 
