@@ -19,6 +19,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(64),unique=True,index=True)
     password_hash=db.Column(db.String(128))
     pitches=db.relationship('Pitch',backref='owner',lazy='dynamic')
+    likes = db.relationship("Like", backref="user",lazy='dynamic')
     
     
     def generate_confirmation_token(self,expiration=3600):
@@ -63,6 +64,7 @@ class Pitch(db.Model):
     categories_id =db.Column(db.Integer, db.ForeignKey('categories.id'))
     comments=db.relationship('Comment',backref='pitch',lazy='dynamic')
     time = db.Column(db.DateTime, default = datetime.datetime.utcnow())
+    likes = db.relationship("Like", backref="liker",lazy='dynamic')
     def __repr__(self):
         return '<Pitch %r>' % self.pitch_body
 
@@ -81,3 +83,19 @@ class Comment(db.Model):
     comment=db.Column(db.String(64))
     pitches_id =db.Column(db.Integer, db.ForeignKey('pitches.id'))
     time = db.Column(db.DateTime, default = datetime.datetime.utcnow)
+class Like(db.Model):
+    __tablename__='likes'
+    id=db.Column(db.Integer,primary_key=True)
+    pitches_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
+
+
+    @classmethod
+    def getlikes(cls,id):
+        likes=Like.query.filter_by(pitches_id=id).all()
+        return likes
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+

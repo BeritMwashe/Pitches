@@ -1,5 +1,5 @@
 from os import name
-from app.models import Category, Comment, Pitch, User
+from app.models import Category, Comment, Like, Pitch, User
 from app.main.forms import CategoryForm, CommentsForm, PitchForm
 from flask import render_template,redirect,url_for,request
 from flask_login import current_user, login_required
@@ -71,7 +71,13 @@ def addPitch():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('maintemplates/addpitch.html',form=form)
-@main.route('/like')
+@main.route('/like/<int:id>',methods=['POST','GET'])
 @login_required
-def like():
-    pass
+def like(id):
+    
+    likes=Like.getlikes(id)
+    print(likes)
+    pitch_id=Pitch.query.filter_by(id=id).first()
+    new_like=Like(user=current_user._get_current_object(),liker=pitch_id)
+    new_like.save()
+    print(new_like)
