@@ -18,14 +18,16 @@ def index():
 def biz(name):
     #pitch=Pitch.query.all()
     pitch=Pitch.query.join(Category).filter(Category.name==name).all()
-    # for pitches in pitch:
-    #     print(pitches.comments)
+    for pitches in pitch:
+         print(pitches.id)
+         
     #     com=[]
     #     comments=Comment.query.join(Pitch).filter(Pitch.id==pitches.id).all()
     #     com.append(comments)
     #     print(comments)
-
-    return render_template('maintemplates/business_pitch.html',pitch=pitch)
+    # likes=Like.getlikes()
+    # likes=Like.getlikes(id)
+    return render_template('maintemplates/business_pitch.html',pitch=pitch,)
 
 
 @main.route('/addCategory',methods=['POST','GET'])
@@ -75,9 +77,26 @@ def addPitch():
 @login_required
 def like(id):
     
-    likes=Like.getlikes(id)
-    print(likes)
+
     pitch_id=Pitch.query.filter_by(id=id).first()
-    new_like=Like(user=current_user._get_current_object(),liker=pitch_id)
-    new_like.save()
-    print(new_like)
+    name=Pitch.query.filter_by(id=id).first()
+    user_like_exists=Like.getlikes(id)
+    print(user_like_exists)
+    if len(user_like_exists)==0:
+        new_like=Like(user=current_user._get_current_object(),liker=pitch_id)
+        new_like.save()
+    else:
+            for uel in user_like_exists:
+                if uel.user_id==current_user.id:
+                    print('exists')
+                    break
+                else:
+                    print('difrent')
+                    new_like=Like(user=current_user._get_current_object(),liker=pitch_id)
+                    new_like.save()
+                    print(new_like)
+
+    likes=Like.getlikes(id)
+    return redirect(url_for('main.biz', name=name.category.name))
+   
+    
