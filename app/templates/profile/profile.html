@@ -26,8 +26,19 @@
             <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a> {% endif %}
         </div>
         <div class="col-md-4">
-            {%for pitch in pitch%}
-            <h4> {{pitch.pitch_body}}</h4>{%endfor%}
+            {%if pitch|length
+            <1%}<h1>
+                No posts from user
+                </h1>{%else%}{%for pitch in pitch%}
+                <h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class='list-group list-group-flush '>
+                                <li class="list-group-item">{{pitch.pitch_body}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    {%endfor%}{%endif%}
         </div>
     </div>
 </div>

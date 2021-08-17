@@ -1,4 +1,3 @@
-{% extends 'base.html'%} {% import 'bootstrap/wtf.html' as wtf%} {% block content %}
 <div class="container">
     <div class="row">
         {%for biz in pitch%}
@@ -18,7 +17,7 @@
                             </a>
                             <a href="/like/{{biz.id}}" class="card-link ">Like</a>
 
-                            <a href="/dislikes/{{biz.id}}" class="card-link ">Dislike</a>
+                            <a href="/dislike/{{biz.id}}" class="card-link ">Dislike</a>
                             <a href="">
                                 {{biz.dislikes.count()}}
                         
@@ -40,4 +39,3 @@
         {%endfor%}
     </div>
 </div>
-{%endblock%}

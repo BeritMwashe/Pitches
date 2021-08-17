@@ -50,11 +50,12 @@ def addCategory():
 def addComment(pitch):
     form=CommentsForm()
     pitch=Pitch.query.filter_by(id=pitch).first()
+    name=pitch.category.name
     if form.validate_on_submit():
         comment=Comment(comment=form.comment.data,pitch=pitch)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.biz',name=name))
     return render_template('maintemplates/addcomment.html',form=form)
 @main.route('/addPitch',methods=['POST','GET'])
 @login_required
@@ -73,7 +74,7 @@ def addPitch():
           
         db.session.add(pitch)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.biz',name=category.name))
     return render_template('maintemplates/addpitch.html',form=form)
 @main.route('/like/<int:id>',methods=['POST','GET'])
 @login_required
