@@ -1,4 +1,4 @@
-from os import name
+from os import abort, name
 from app.models import Category, Comment, DisLike, Like, Pitch, User
 from app.main.forms import CategoryForm, CommentsForm, PitchForm
 from flask import render_template,redirect,url_for,request
@@ -127,3 +127,11 @@ def dislikes(id):
     return redirect(url_for('main.biz', name=name.category.name))
    
     
+@main.route('/user/<uname>')
+def profile(uname):
+    user=User.query.filter_by(username=uname).first()
+
+
+    if user is None:
+        abort(404)
+    return render_template('profile/profile.html',user=user)
