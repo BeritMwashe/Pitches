@@ -8,15 +8,22 @@
                     <li class="list-group-item ">{{biz.pitch_body}}</li>
                     <!-- <a href="">{{biz.category.name}}</a> -->
                     <li class="list-group-item text-center font-weight:bold">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">
-                        <div class=" card-body float-right ">
-                            <a href="# " class="card-link ">Like</a>
+
+                    <div class=" card-body float-right ">
+                        <li class="list-group-item"> <a href="# " class="card-link ">Like</a>
 
                             <a href="# " class="card-link ">Dislike</a>
-                            <a href="# " class="/addComent/{{biz.id}}">Comment</a>
+                            <a class="card-link" data-toggle="collapse" href="#collapseExample">Comments</a>
+                        </li>
+                    </div>
+                    <li class="list-group-item font-weight:bold overflow-hidden">
+                        {%for comment in biz.comments%}
+                        <h6>{{comment.comment}}</h6>
+                        {%endfor%}
+                        <a class="card-link" href="/addComent/{{biz.id}}">Add Comment</a>
 
-                        </div>
                     </li>
+
                 </ul>
             </div>
         </div>

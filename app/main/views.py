@@ -18,10 +18,18 @@ def index():
 def biz(name):
     #pitch=Pitch.query.all()
     pitch=Pitch.query.join(Category).filter(Category.name==name).all()
+    # for pitches in pitch:
+    #     print(pitches.comments)
+    #     com=[]
+    #     comments=Comment.query.join(Pitch).filter(Pitch.id==pitches.id).all()
+    #     com.append(comments)
+    #     print(comments)
+
     return render_template('maintemplates/business_pitch.html',pitch=pitch)
 
 
 @main.route('/addCategory',methods=['POST','GET'])
+@login_required
 def addCategory():
     form=CategoryForm()
     if form.validate_on_submit():
@@ -34,11 +42,12 @@ def addCategory():
 
 
 @main.route('/addComent/<pitch>',methods=['POST','GET'])
+@login_required
 def addComment(pitch):
     form=CommentsForm()
     pitch=Pitch.query.filter_by(id=pitch).first()
     if form.validate_on_submit():
-        comment=Comment(name=form.comment.data,pitch=pitch)
+        comment=Comment(comment=form.comment.data,pitch=pitch)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('main.index'))
@@ -62,3 +71,7 @@ def addPitch():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('maintemplates/addpitch.html',form=form)
+@main.route('/like')
+@login_required
+def like():
+    pass
