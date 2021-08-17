@@ -65,7 +65,7 @@ class Pitch(db.Model):
     comments=db.relationship('Comment',backref='pitch',lazy='dynamic')
     time = db.Column(db.DateTime, default = datetime.datetime.utcnow())
     likes = db.relationship("Like", backref="liker",lazy='dynamic')
-    dislike = db.relationship("DisLike", backref="disliked",lazy='dynamic')
+    dislikes = db.relationship("DisLike", backref="disliked",lazy='dynamic')
     def __repr__(self):
         return '<Pitch %r>' % self.pitch_body
 
@@ -100,7 +100,7 @@ class Like(db.Model):
         db.session.commit()
 
 class DisLike(db.Model):
-    __tablename__='likes'
+    __tablename__='dislikes'
     id=db.Column(db.Integer,primary_key=True)
     pitches_id=db.Column(db.Integer,db.ForeignKey('pitches.id'))
     user_id=db.Column(db.Integer,db.ForeignKey('users.id'))
@@ -108,8 +108,8 @@ class DisLike(db.Model):
 
     @classmethod
     def getdislikes(cls,id):
-        likes=DisLike.query.filter_by(pitches_id=id).all()
-        return likes
+        dislikes=DisLike.query.filter_by(pitches_id=id).all()
+        return dislikes
     def save(self):
         db.session.add(self)
         db.session.commit()

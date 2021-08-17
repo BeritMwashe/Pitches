@@ -18,7 +18,11 @@
                             </a>
                             <a href="/like/{{biz.id}}" class="card-link ">Like</a>
 
-                            <a href="# " class="card-link ">Dislike</a>
+                            <a href="/dislike/{{biz.id}}" class="card-link ">Dislike</a>
+                            <a href="">
+                                {{biz.dislikes.count()}}
+                        
+                            </a>
                             <a class="card-link" data-toggle="collapse" href="#collapseExample">Comments</a>
                         </li>
                     </div>

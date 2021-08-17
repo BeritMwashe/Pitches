@@ -1,5 +1,5 @@
 from os import name
-from app.models import Category, Comment, Like, Pitch, User
+from app.models import Category, Comment, DisLike, Like, Pitch, User
 from app.main.forms import CategoryForm, CommentsForm, PitchForm
 from flask import render_template,redirect,url_for,request
 from flask_login import current_user, login_required
@@ -97,6 +97,33 @@ def like(id):
                     print(new_like)
 
     likes=Like.getlikes(id)
+    return redirect(url_for('main.biz', name=name.category.name))
+   
+    
+@main.route('/dislikes/<int:id>',methods=['POST','GET'])
+@login_required
+def dislikes(id):
+    
+
+    pitch_id=Pitch.query.filter_by(id=id).first()
+    name=Pitch.query.filter_by(id=id).first()
+    user_like_exists=DisLike.getdislikes(id)
+    print(user_like_exists)
+    if len(user_like_exists)==0:
+        new_like=DisLike(dislikeuser=current_user._get_current_object(),disliked=pitch_id)
+        new_like.save()
+    else:
+            for uel in user_like_exists:
+                if uel.user_id==current_user.id:
+                    print('exists')
+                    break
+                else:
+                    print('difrent')
+                    new_like=DisLike(dislikeuser=current_user._get_current_object(),disliked=pitch_id)
+                    new_like.save()
+                    print(new_like)
+
+    dislikes=DisLike.getdislikes(id)
     return redirect(url_for('main.biz', name=name.category.name))
    
     
